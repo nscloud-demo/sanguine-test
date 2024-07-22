@@ -1,9 +1,5 @@
 project_name: ethergo
 
-monorepo:
-  tag_prefix: ethergo/
-  dir: ethergo/
-
 builds:
   # Linux AMD64
   - id: signer-example
