@@ -1,9 +1,9 @@
 FROM --platform=linux/amd64 debian:12-slim
 
-ARG VERSION_ARG=1.24.0-pro
-ARG SHA_ARG=01237f7151d2c46c307f21de183eb863ce47a4b5244507487ec663640b077d7d
-ARG FILE_ARG=goreleaser-pro_Linux_x86_64.tar.gz
-ARG DOWNLOAD_ARG=https://github.com/goreleaser/goreleaser-pro/releases/download/v${VERSION_ARG}/${FILE_ARG}
+ARG VERSION_ARG=1.24.0
+ARG SHA_ARG=99709684e3f543ed32a771e1565055e43d2ec524e631bcd8d331c2d8ed6a584f
+ARG FILE_ARG=goreleaser_Linux_x86_64.tar.gz
+ARG DOWNLOAD_ARG=https://github.com/goreleaser/goreleaser/releases/download/v${VERSION_ARG}/${FILE_ARG}
 
 # from https://github.com/iotaledger/goreleaser-cgo-cross-compiler
 ENV GORELEASER_VERSION=$VERSION_ARG
@@ -71,11 +71,11 @@ CMD ["goreleaser", "-v"]
 
 # end copied section
 
-LABEL org.label-schema.description="GoReleaser sanguine dockerfile"
-LABEL org.label-schema.name="ghcr.io/synapsecns/sanguine-goreleaser"
+LABEL org.label-schema.description="GoReleaser sanguine-test dockerfile"
+LABEL org.label-schema.name="ghcr.io/nscloud-demo/sanguine-test-goreleaser"
 LABEL org.label-schema.schema-version="1.0.0"
-LABEL org.label-schema.vcs-url="https://github.com/synapsecns/sanguine"
-LABEL org.opencontainers.image.source="https://github.com/synapsecns/sanguine"
+LABEL org.label-schema.vcs-url="https://github.com/nscloud-demo/sanguine-test"
+LABEL org.opencontainers.image.source="https://github.com/nscloud-demo/sanguine-test"
 LABEL org.opencontainers.image.description="Goreleaser Docker image"
 
 # add any extra dependencies here

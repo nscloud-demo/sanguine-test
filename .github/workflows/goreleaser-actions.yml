@@ -1,5 +1,7 @@
 name: Go Releaser
-on: [push]
+on:
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
 
 jobs:
   # build the goreleaser container cgo cross compiler container. Note: this wil not be applied  until
@@ -64,7 +66,7 @@ jobs:
         run:
           echo "##[set-output name=TAG_NAME;]$(echo $LATEST_TAG_NAME)"
         env:
-          LATEST_TAG_NAME: ghcr.io/synapsecns/sanguine-goreleaser:${{ hashFiles('docker/goreleaser/**') }}
+          LATEST_TAG_NAME: ghcr.io/nscloud-demo/sanguine-test-goreleaser:${{ hashFiles('docker/goreleaser/**') }}
       -
         name: Build and push
         if: steps.changes.outputs.src == 'true'
@@ -74,40 +76,12 @@ jobs:
           push: true
           file: ./docker/goreleaser/Dockerfile
           # TODO this needs to be versioned
-          # Note: this automatically pushes the latest tag for sanguine-goreleaser even on branched workflows. While unlikely,
+          # Note: this automatically pushes the latest tag for sanguine-test-goreleaser even on branched workflows. While unlikely,
           # this could break local devnets that rely on working versions of this image and as such the latest tag should only be pushed on master
           # additionally, tags representing a specific version rather than the hash of the file should be considered for future use.
-          tags: ghcr.io/synapsecns/sanguine-goreleaser:latest,${{ steps.name-export.outputs.TAG_NAME }}
-          cache-from: type=registry,ref=ghcr.io/synapsecns/sanguine-goreleaser:buildcache
-          cache-to: type=registry,ref=ghcr.io/synapsecns/sanguine-goreleaser:buildcache,mode=max
-
-  # TODO: we should find a way for this not to be duplicated with go.yml
-  changes:
-    name: Change Detection
-    runs-on: ubuntu-latest
-    # see: https://stackoverflow.com/a/68414395
-    if: ${{ format('refs/heads/{0}', github.event.repository.default_branch) == github.ref || contains(github.event.head_commit.message, '[goreleaser]') }}
-    outputs:
-      # Expose matched filters as job 'packages' output variable
-      packages: ${{ steps.filter_go.outputs.changed_modules_deps }}
-      package_count: ${{ steps.length.outputs.FILTER_LENGTH }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          submodules: 'recursive'
-
-      - uses: docker://ghcr.io/synapsecns/sanguine/git-changes-action:latest
-        id: filter_go
-        with:
-          github_token: ${{ secrets.WORKFLOW_PAT || secrets.GITHUB_TOKEN }}
-
-      - id: length
-        run: |
-          export FILTER_LENGTH=$(echo $FILTERED_PATHS | jq '. | length')
-          echo "##[set-output name=FILTER_LENGTH;]$(echo $FILTER_LENGTH)"
-        env:
-          FILTERED_PATHS: ${{ steps.filter_go.outputs.changed_modules_deps }}
+          tags: ghcr.io/nscloud-demo/sanguine-test-goreleaser:latest,${{ steps.name-export.outputs.TAG_NAME }}
+          cache-from: type=registry,ref=ghcr.io/nscloud-demo/sanguine-test-goreleaser:buildcache
+          cache-to: type=registry,ref=ghcr.io/nscloud-demo/sanguine-test-goreleaser:buildcache,mode=max
 
   # TODO: we may want to dry run this on prs
   run-goreleaser:
@@ -175,7 +149,7 @@ jobs:
           fetch_all_tags: true
 
       - name: Tag Config
-        run: git config --global --add safe.directory /__w/sanguine/sanguine
+        run: git config --global --add safe.directory /__w/nscloud-demo/sanguine-test
 
       -
         name: Fetch all tags
