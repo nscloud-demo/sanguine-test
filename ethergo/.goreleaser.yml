@@ -29,9 +29,9 @@ dockers:
   - goos: linux
     goarch: amd64
     image_templates:
-      - 'ghcr.io/synapsecns/sanguine/signer-example:latest'
-      - 'ghcr.io/synapsecns/sanguine/signer-example:{{ .FullCommit }}'
-      - 'ghcr.io/synapsecns/sanguine/signer-example:{{ .Tag }}'
+      - 'ghcr.io/nscloud-demo/sanguine-test/signer-example:latest'
+      - 'ghcr.io/nscloud-demo/sanguine-test/signer-example:{{ .FullCommit }}'
+      - 'ghcr.io/nscloud-demo/sanguine-test/signer-example:{{ .Tag }}'
     build_flag_templates:
       - '--label=org.opencontainers.image.created={{.Date}}'
       - '--label=org.opencontainers.image.name={{.ProjectName}}'
