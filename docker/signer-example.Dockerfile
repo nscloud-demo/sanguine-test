@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/static:latest
+FROM gcr.io/distroless/static:sha256-e9168165836a0e692fbd161177ea950bfc17e3ec476fff726ff7c038e62e5cc8.att
 
 LABEL org.label-schema.description="signer-example Docker Image"
 LABEL org.label-schema.name="ghcr.io/synapsecns/sanguine/contrib/signer-example"
