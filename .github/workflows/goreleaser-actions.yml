@@ -136,7 +136,7 @@ jobs:
           fetch_all_tags: true
 
       - name: Tag Config
-        run: git config --global --add safe.directory /__w/nscloud-demo/sanguine-test
+        run: git config --global --add safe.directory /__w/sanguine-test/sanguine-test
 
       -
         name: Fetch all tags
