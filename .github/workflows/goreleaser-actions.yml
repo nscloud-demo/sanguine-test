@@ -8,7 +8,7 @@ jobs:
   # the next run since build-goreleaser and run-goreleaser are run concurrently. We expect github actions
   # to fix this in a future version.
   build-goreleaser:
-    runs-on: ubuntu-latest
+    runs-on: namespace-profile-fast-goreleaser
     outputs:
       goreleaser-image: ${{ steps.name-export.outputs.TAG_NAME }}
     permissions:
@@ -162,7 +162,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Test Docker build
-        run: docker build -t ghcr.io/nscloud-demo/sanguine-test-directly-built:latest -f docker/signer-example.Dockerfile
+        run: docker build -t ghcr.io/nscloud-demo/sanguine-test-directly-built:latest -f docker/signer-example.Dockerfile .
 
       - name: Test Docker push
         run: docker push ghcr.io/nscloud-demo/sanguine-test-directly-built:latest
