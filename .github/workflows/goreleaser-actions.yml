@@ -162,7 +162,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Test Docker build
-        run: docker build -t ghcr.io/nscloud-demo/sanguine-test-directly-built:latest -f docker/signer-example.Dockerfile .
+        run: docker build -t ghcr.io/nscloud-demo/sanguine-test-directly-built:latest -f docker/signer-example.Dockerfile ethergo/examples
 
       - name: Test Docker push
         run: docker push ghcr.io/nscloud-demo/sanguine-test-directly-built:latest
