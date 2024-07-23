@@ -161,6 +161,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Test Docker build
+        run: docker build -t ghcr.io/nscloud-demo/sanguine-test-directly-built:latest -f docker/signer-example.Dockerfile
+
+      - name: Test Docker push
+        run: docker push ghcr.io/nscloud-demo/sanguine-test-directly-built:latest
+
       - name: Run GoReleaser (Release)
         if: steps.branch-name.outputs.is_default == 'true'
         run: goreleaser  --timeout 900m --clean --debug -f ${{matrix.package}}/.goreleaser.yml
